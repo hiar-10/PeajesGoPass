@@ -2,19 +2,15 @@ package Mundo;
 
 import java.util.Arrays;
 
-public class Peaje
-{
+public class Peaje {
 	private String nombre;
 	private Double[] tarifas;
-	
-	
+
 	// Construtor
-	public Peaje(String nombre, Double[] tarifas)
-	{
+	public Peaje(String nombre, Double[] tarifas) {
 		this.nombre = nombre;
 		this.tarifas = tarifas;
 	}
-
 
 	// ToString
 	@Override

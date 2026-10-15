@@ -10,7 +10,7 @@ public class PlanPremium extends Plan {
 	@Override
 	public double calcularTarifa(double valorPeaje) {
 		// TODO Auto-generated method stub
-		return valorPeaje * (1-descuento);
+		return valorPeaje * (1 - descuento);
 	}
 
 }
