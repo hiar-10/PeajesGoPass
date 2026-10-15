@@ -2,7 +2,8 @@ package Mundo;
 
 public class PlanBasico extends Plan {
 
-	public PlanBasico(double descuento) {
+	public PlanBasico(double descuento) 
+	{
 		super(descuento);
 	}
 
@@ -10,5 +11,11 @@ public class PlanBasico extends Plan {
 	public double calcularTarifa(double valorPeaje) {
 
 		return valorPeaje * (1 - descuento);
+	}
+
+	@Override
+	public String toString()
+	{
+    return "Básico (Sin descuento)";
 	}
 }

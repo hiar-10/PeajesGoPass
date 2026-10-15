@@ -1,6 +1,7 @@
 package Mundo;
 
-public class Vehiculo {
+public class Vehiculo 
+{
 	private String placa;
 	private int categoria;
 
@@ -20,11 +21,13 @@ public class Vehiculo {
 	// ToString
 	@Override
 	public String toString() {
-		return "Vehiculo [placa=" + placa + ", categoria=" + categoria + "]";
+		return "Placa " + placa + " | Categoria " + categoria ;
 	}
 
 	// Categoria de acuerdo a tipo de vehiculo
 	public int obtenerCategoria() {
 		return categoria;
 	}
+
+
 }

@@ -4,13 +4,18 @@ public class PlanPremium extends Plan {
 
 	public PlanPremium(double descuento) {
 		super(descuento);
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	public double calcularTarifa(double valorPeaje) {
 		// TODO Auto-generated method stub
-		return valorPeaje * (1 - descuento);
+		return valorPeaje * (1-descuento);
+	}
+	@Override
+	public String toString()
+	{
+    return "Premium (20% descuento)";
 	}
 
 }
