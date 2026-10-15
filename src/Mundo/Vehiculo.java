@@ -27,7 +27,7 @@ public class Vehiculo
 	// ToString
 	@Override
 	public String toString() {
-		return "Vehiculo [placa=" + placa + ", categoria=" + categoria + "]";
+		return "Placa " + placa + " | Categoria " + categoria ;
 	}
 
 
@@ -36,5 +36,6 @@ public class Vehiculo
 	{
 		return categoria;
 	}
+
 
 }

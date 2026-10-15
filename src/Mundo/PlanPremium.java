@@ -15,7 +15,7 @@ public class PlanPremium extends Plan {
 	@Override
 	public String toString()
 	{
-    return "Plan Premium (20% descuento)";
+    return "Premium (20% descuento)";
 	}
 
 }

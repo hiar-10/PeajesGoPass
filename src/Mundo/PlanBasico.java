@@ -19,6 +19,6 @@ public class PlanBasico extends Plan
 	@Override
 	public String toString()
 	{
-    return "Plan Básico (Sin descuento)";
+    return "Básico (Sin descuento)";
 	}
 }

@@ -45,7 +45,7 @@ public class Main {
 		Plan p3 = new PlanPremium(0.20); // 20%
 
 		// Usuarios
-		Usuario u1 = new Usuario("U001", "Carlos", 500000, v1, p1);
+		Usuario u1 = new Usuario("U001", "Carlos", 0, v1, p1);
 		Usuario u2 = new Usuario("U002", "Hirasska", 600000, v2, p2);
 		Usuario u3 = new Usuario("U003", "Sofia", 700000, v3, p3);
 		Usuario u4 = new Usuario("U004", "Celso", 1200000, v4, p3);
@@ -106,11 +106,7 @@ public class Main {
 
 					for (int i = 0; i < usuarios.size(); i++) {
 						System.out.println((i + 1) + ". "
-								+ usuarios.get(i).getNombre()
-								+ " | "
-								+ usuarios.get(i).getPlan()
-								+ "| Categoria: "
-								+ usuarios.get(i).getVehiculo().obtenerCategoria());
+								+ usuarios.get(i));
 					}
 
 					break;
@@ -209,7 +205,6 @@ public class Main {
 					for (Usuario u : usuarios) {
 						System.out.println(
 								"Usuario: " + u.getNombre()
-										+ " | Plan: " + u.getPlan()
 										+ " | Saldo: $" + u.getSaldo());
 					}
 
@@ -225,8 +220,7 @@ public class Main {
 					System.out.print("Nombre: ");
 					String nombre = sc.next();
 
-					System.out.print("Saldo inicial: ");
-					double saldo = sc.nextDouble();
+					double saldo = 0;
 
 					System.out.print("Placa: ");
 					String placa = sc.next();

@@ -13,7 +13,7 @@ public class Usuario
 	public Usuario(String userId, String nombre, double saldo, Vehiculo vehiculo, Plan plan)
 	{
 		this.userId = userId;
-		
+
 		if(nombre == null || nombre.isBlank())
 		{
 			throw new IllegalArgumentException("El nombre no puede ser nulo o estar vacío");
@@ -25,14 +25,14 @@ public class Usuario
 		if (saldo >= 0)
 		{
 			this.saldo = saldo;
-		} 
-		else 
+		}
+		else
 		{
 			this.saldo = 0;
 		}
 
 
-		// No null 
+		// No null
 		if (vehiculo == null)
 		{
 			throw new IllegalArgumentException("El vehículo no puede ser nulo");
@@ -44,7 +44,7 @@ public class Usuario
 
 
 	// Getters and setters
-	public String getUserId() 
+	public String getUserId()
 	{
 		return userId;
 	}
@@ -54,7 +54,7 @@ public class Usuario
 		return nombre;
 	}
 
-	public void setNombre(String nombre) 
+	public void setNombre(String nombre)
 	{
 		this.nombre = nombre;
 	}
@@ -63,22 +63,22 @@ public class Usuario
 		return saldo;
 	}
 
-	public Vehiculo getVehiculo() 
+	public Vehiculo getVehiculo()
 	{
 		return vehiculo;
 	}
 
-	public void setVehiculo(Vehiculo vehiculo) 
+	public void setVehiculo(Vehiculo vehiculo)
 	{
 		this.vehiculo = vehiculo;
 	}
 
-	public Plan getPlan() 
+	public Plan getPlan()
 	{
 		return plan;
 	}
 
-	public void setPlan(Plan plan) 
+	public void setPlan(Plan plan)
 	{
 		this.plan = plan;
 	}
@@ -88,10 +88,10 @@ public class Usuario
 	@Override
 	public String toString()
 	{
-		return "Información de Usuario. User ID: " + userId + 
-				" | Nombre: " + nombre + 
-				" | Saldo: " + saldo + 
-				" | Vehiculo: " + vehiculo + 
+		return "User ID: " + userId +
+				" | Nombre: " + nombre +
+				" | Saldo: " + saldo +
+				" | Vehiculo: " + vehiculo +
 				" | Plan: " + plan;
 	}
 

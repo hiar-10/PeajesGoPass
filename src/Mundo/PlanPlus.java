@@ -18,6 +18,6 @@ public class PlanPlus extends Plan
 	@Override
 	public String toString()
 	{
-    return "Plan Plus (10% descuento)";
+    return "Plus (10% descuento)";
 	}
 }
