@@ -2,7 +2,7 @@ package Mundo;
 
 public class PlanPlus extends Plan
 {
-	public PlanPlus(double descuento) 
+	public PlanPlus(double descuento)
 	{
 		super(descuento);
 	}
@@ -13,5 +13,11 @@ public class PlanPlus extends Plan
 	{
 
 		return valorPeaje * (1-descuento);
+	}
+
+	@Override
+	public String toString()
+	{
+    return "Plan Plus (10% descuento)";
 	}
 }

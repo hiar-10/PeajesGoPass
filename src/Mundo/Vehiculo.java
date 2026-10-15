@@ -1,6 +1,6 @@
 package Mundo;
 
-public class Vehiculo 
+public class Vehiculo
 {
 	private String placa;
 	private int categoria;
@@ -36,4 +36,5 @@ public class Vehiculo
 	{
 		return categoria;
 	}
+
 }
