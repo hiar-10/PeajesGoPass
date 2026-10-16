@@ -30,6 +30,17 @@ public class Main {
 		}
 	}
 
+	public static double ValidarNumero(Scanner sc) {
+		while (true) {
+			if (sc.hasNextDouble()) {
+				return sc.nextDouble();
+			}
+
+			System.out.println("Error: solo puede ingresar números.");
+			sc.next();
+		}
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
@@ -81,6 +92,8 @@ public class Main {
 
 		Stack<String> historialPeajes = new Stack<>();
 
+		int consecutivoUsuario = 5;
+
 		int opcion;
 
 		do {
@@ -93,7 +106,8 @@ public class Main {
 			System.out.println("4. Consultar saldo");
 			System.out.println("5. Crear Usuario");
 			System.out.println("6. Ver historial de peajes");
-			System.out.println("7. Salir");
+			System.out.println("7. Eliminar Usuario");
+			System.out.println("8. Salir");
 
 			System.out.print("Seleccione una opción: ");
 
@@ -159,15 +173,87 @@ public class Main {
 					System.out.println("Categoría vehículo: " + categoria);
 					System.out.println("Tarifa base: $" + valorPeaje);
 					System.out.println("Tarifa con descuento: $" + tarifaFinal);
-					usuario.descontarSaldo(tarifaFinal);
-					System.out.println("Saldo restante: $" + usuario.getSaldo());
+					System.out.println("Saldo: $" + usuario.getSaldo());
+					boolean pagoExitoso = usuario.descontarSaldo(tarifaFinal);
 
-					historialPeajes.push(
-							usuario.getNombre()
-									+ " pasó por "
-									+ peajeSeleccionado.getNombre()
-									+ " y pagó $"
-									+ tarifaFinal);
+					if (pagoExitoso) {
+						System.out.println("Saldo restante: $" +
+								usuario.getSaldo());
+
+						historialPeajes.push(
+								usuario.getNombre()
+										+ " pasó por "
+										+ peajeSeleccionado.getNombre()
+										+ " y pagó $"
+										+ tarifaFinal);
+					} else {
+						System.out.println("\nSaldo insuficiente.");
+						System.out.println("¿Desea recargar saldo?");
+						System.out.println("1. Sí");
+						System.out.println("2. No");
+
+						int respuesta;
+
+						while (true) {
+							respuesta = solicitarNumero(sc);
+
+							if (respuesta == 1 || respuesta == 2) {
+								break;
+							}
+
+							System.out.println("Error: solo puede seleccionar 1 o 2.");
+						}
+
+						if (respuesta == 1) {
+							while (true) {
+								try {
+									System.out.print("Valor a recargar: ");
+
+									if (!sc.hasNextDouble()) {
+										throw new IllegalArgumentException(
+												"Debe ingresar un valor numérico.");
+									}
+
+									double recarga = sc.nextDouble();
+
+									usuario.recargarSaldo(recarga);
+
+									System.out.println("Recarga exitosa.");
+									System.out.println("Saldo actual: $"
+											+ usuario.getSaldo());
+
+									break;
+								} catch (IllegalArgumentException e) {
+									System.out.println(e.getMessage());
+									sc.nextLine();
+								}
+							}
+
+							System.out.println("\n¿Desea confirmar el paso por el peaje?");
+							System.out.println("1. Sí");
+							System.out.println("2. No");
+
+							int confirmar = solicitarNumero(sc);
+
+							if (confirmar == 1) {
+								if (usuario.descontarSaldo(tarifaFinal)) {
+									System.out.println("Peaje pagado correctamente.");
+									System.out.println("Saldo restante: $"
+											+ usuario.getSaldo());
+
+									historialPeajes.push(
+											usuario.getNombre()
+													+ " pasó por "
+													+ peajeSeleccionado.getNombre()
+													+ " y pagó $"
+													+ tarifaFinal);
+								} else {
+									System.out.println(
+											"La recarga realizada aún no es suficiente para cubrir el peaje.");
+								}
+							}
+						}
+					}
 
 					break;
 
@@ -184,14 +270,20 @@ public class Main {
 
 					if (indiceUsuarioRecarga >= 0 &&
 							indiceUsuarioRecarga < usuarios.size()) {
-						System.out.print("Valor a recargar: ");
-						double recarga = sc.nextDouble();
+						try {
+							System.out.print("Valor a recargar: ");
+							double recarga = ValidarNumero(sc);
 
-						usuarios.get(indiceUsuarioRecarga).recargarSaldo(recarga);
+							usuarios.get(indiceUsuarioRecarga)
+									.recargarSaldo(recarga);
 
-						System.out.println("Recarga exitosa.");
-						System.out.println("Nuevo saldo: $"
-								+ usuarios.get(indiceUsuarioRecarga).getSaldo());
+							System.out.println("Recarga exitosa.");
+							System.out.println("Nuevo saldo: $"
+									+ usuarios.get(indiceUsuarioRecarga).getSaldo());
+						} catch (IllegalArgumentException e) {
+							System.out.println("Error: " + e.getMessage());
+						}
+
 					} else {
 						System.out.println("Usuario no válido.");
 					}
@@ -214,19 +306,60 @@ public class Main {
 
 					System.out.println("\n=== CREAR USUARIO ===");
 
-					System.out.print("ID del usuario: ");
-					String userId = sc.next();
+					String userId = String.format("U%03d", consecutivoUsuario++);
 
-					System.out.print("Nombre: ");
-					String nombre = sc.next();
+					String nombre;
+
+					while (true) {
+						System.out.print("Nombre: ");
+						nombre = sc.next();
+
+						if (nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+							break;
+						}
+
+						System.out.println("Error: el nombre solo puede contener letras.");
+					}
 
 					double saldo = 0;
 
-					System.out.print("Placa: ");
-					String placa = sc.next();
+					String placa;
 
-					System.out.print("Categoría del vehículo (1-7): ");
-					int categoriaC = sc.nextInt();
+					while (true) {
+						System.out.print("Placa: ");
+						placa = sc.next().toUpperCase();
+
+						boolean existe = false;
+
+						for (Usuario u : usuarios) {
+							if (u.getVehiculo().obtenerPlaca().equalsIgnoreCase(placa)) {
+								existe = true;
+								break;
+							}
+						}
+
+						if (existe) {
+							System.out.println("Error: la placa ya está registrada.");
+						} else {
+							break;
+						}
+					}
+
+					System.out.println("\nSeleccione la categoría del vehículo:");
+					System.out.println("1. Categoría I  - Automóviles, camperos, camionetas");
+					System.out.println("2. Categoría II - Buses, busetas, microbuses");
+					System.out.println("3. Categoría III - Camiones de 2 ejes");
+					System.out.println("4. Categoría IV - Camiones de 2 ejes con doble llanta");
+					System.out.println("5. Categoría V - Camiones de 3 a 5 ejes");
+					System.out.println("6. Categoría VI - Camiones de 6 ejes");
+					System.out.println("7. Categoría VII - Camiones de 7 ejes o más");
+
+					int categoriaC = solicitarNumero(sc);
+
+					while (categoriaC < 1 || categoriaC > 7) {
+						System.out.println("Error: la categoría debe estar entre 1 y 7.");
+						categoriaC = solicitarNumero(sc);
+					}
 
 					Vehiculo nuevoVehiculo = new Vehiculo(placa, categoriaC);
 
@@ -285,6 +418,40 @@ public class Main {
 
 				case 7:
 
+					System.out.println("\n=== ELIMINAR USUARIO ===");
+
+					if (usuarios.isEmpty()) {
+						System.out.println("No hay usuarios registrados.");
+						break;
+					}
+
+					for (int i = 0; i < usuarios.size(); i++) {
+						System.out.println((i + 1) + ". "
+								+ usuarios.get(i).getNombre()
+								+ " | ID: "
+								+ usuarios.get(i).getUserId());
+					}
+
+					System.out.print("Seleccione el usuario a eliminar: ");
+
+					int indiceEliminar = solicitarNumero(sc) - 1;
+
+					if (indiceEliminar >= 0 &&
+							indiceEliminar < usuarios.size()) {
+						Usuario eliminado = usuarios.remove(indiceEliminar);
+
+						System.out.println(
+								"Usuario "
+										+ eliminado.getNombre()
+										+ " eliminado correctamente.");
+					} else {
+						System.out.println("Usuario no válido.");
+					}
+
+					break;
+
+				case 8:
+
 					System.out.println("Programa finalizado.");
 
 					break;
@@ -294,7 +461,7 @@ public class Main {
 					System.out.println("Opción inválida.");
 			}
 
-		} while (opcion != 7);
+		} while (opcion != 8);
 
 		sc.close();
 	}

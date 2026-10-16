@@ -98,24 +98,26 @@ public class Usuario
 
 	// Recargar
 	public void recargarSaldo(double valorRecarga)
-	{
-		if (valorRecarga > 0)
-		{
-			this.saldo += valorRecarga;
-		}
-	}
+{
+    if(valorRecarga < 20000 || valorRecarga > 200000)
+    {
+        throw new IllegalArgumentException(
+                "La recarga debe estar entre $20.000 y $200.000");
+    }
+
+    this.saldo += valorRecarga;
+}
 
 
 	// Descontar / Pagar peaje
-	public void descontarSaldo(double tarifa)
-	{
-		if (this.saldo >= tarifa)
-		{
-			this.saldo -= tarifa;
-		}
-		else
-		{
-			System.out.println("Saldo insuficiente. Por favor recargue o utilice un método de pago alternativo");
-		}
-	}
+	public boolean descontarSaldo(double tarifa)
+{
+    if(this.saldo >= tarifa)
+    {
+        this.saldo -= tarifa;
+        return true;
+    }
+
+    return false;
+}
 }

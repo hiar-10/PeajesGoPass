@@ -37,5 +37,10 @@ public class Vehiculo
 		return categoria;
 	}
 
+		// Categoria de acuerdo a tipo de vehiculo
+	public String obtenerPlaca()
+	{
+		return placa;
+	}
 
 }
