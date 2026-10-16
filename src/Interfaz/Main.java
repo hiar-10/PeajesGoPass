@@ -14,6 +14,8 @@ import Mundo.Vehiculo;
 
 public class Main {
 
+	// Método validación de opciones del menu solo numeros
+
 	public static int solicitarNumero(Scanner sc) {
 		int numero;
 
@@ -30,6 +32,8 @@ public class Main {
 		}
 	}
 
+	// Método validación para valor de recarga solo valores enteros
+
 	public static double ValidarNumero(Scanner sc) {
 		while (true) {
 			if (sc.hasNextDouble()) {
@@ -41,25 +45,29 @@ public class Main {
 		}
 	}
 
+	// Clase Main Inicio Programa
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
-		// Vehículos
+		// Se crean objetos de vehículos
 		Vehiculo v1 = new Vehiculo("ABC123", 1);
 		Vehiculo v2 = new Vehiculo("DEF456", 3);
 		Vehiculo v3 = new Vehiculo("GHI789", 5);
 		Vehiculo v4 = new Vehiculo("REO809", 7);
 
-		// Planes
+		// Se crean objetos de planes
 		Plan p1 = new PlanBasico(0.00); // 00%
 		Plan p2 = new PlanPlus(0.10); // 10%
 		Plan p3 = new PlanPremium(0.20); // 20%
 
-		// Usuarios
+		// Se crean objetos de usuarios
 		Usuario u1 = new Usuario("U001", "Carlos", 0, v1, p1);
 		Usuario u2 = new Usuario("U002", "Hirasska", 600000, v2, p2);
 		Usuario u3 = new Usuario("U003", "Sofia", 700000, v3, p3);
 		Usuario u4 = new Usuario("U004", "Celso", 1200000, v4, p3);
+
+		// Lista de usuarios registrados
 
 		ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -68,7 +76,7 @@ public class Main {
 		usuarios.add(u3);
 		usuarios.add(u4);
 
-		// Peajes
+		// Lista cargada de peajes
 
 		Peaje[] peajes = {
 				new Peaje("Alto Pino",
@@ -90,9 +98,18 @@ public class Main {
 						new Double[] { 21800.00, 27100.00, 32200.00, 45800.00, 64700.00, 81500.00, 94400.00 })
 		};
 
+		//Se crea una pila para guardar registros de pasos exitosos de peajes
+
 		Stack<String> historialPeajes = new Stack<>();
 
+		/*
+		*Se inicializa en este programa consecutivo en 5, ya que tenemos 4 usuarios
+		*por defecto registrados y ahi empieza el contador unico
+		*/
+
 		int consecutivoUsuario = 5;
+
+		// Inicializacion de opciones de programa
 
 		int opcion;
 
@@ -107,7 +124,8 @@ public class Main {
 			System.out.println("5. Crear Usuario");
 			System.out.println("6. Ver historial de peajes");
 			System.out.println("7. Eliminar Usuario");
-			System.out.println("8. Salir");
+			System.out.println("8. Actualizar Plan");
+			System.out.println("9. Salir");
 
 			System.out.print("Seleccione una opción: ");
 
@@ -450,7 +468,16 @@ public class Main {
 
 					break;
 
-				case 8:
+
+
+				/*
+				*en este espacio colocar el "case 8" para el update de la placa no olvidar
+				*probar que solo se puedan ingresar datos validos
+				*/
+
+
+
+				case 9:
 
 					System.out.println("Programa finalizado.");
 
@@ -461,7 +488,7 @@ public class Main {
 					System.out.println("Opción inválida.");
 			}
 
-		} while (opcion != 8);
+		} while (opcion != 9);
 
 		sc.close();
 	}
