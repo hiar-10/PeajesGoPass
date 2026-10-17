@@ -484,7 +484,7 @@ public class Main {
 
 					for (int i = 0; i < usuarios.size(); i++) {
 						System.out.println((i + 1) + ". " + usuarios.get(i).getNombre()
-								+ " | Plan actual: " + usuarios.get(i).getPlan().toString()8);
+								+ " | Plan actual: " + usuarios.get(i).getPlan().toString());
 					}
 
 					System.out.print("Seleccione el usuario para actualizar el plan: ");
