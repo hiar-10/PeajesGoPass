@@ -1,3 +1,10 @@
+/*
+ * Valery Sofia Espitia Rodriguez- 1069402832
+ * Carlos Mauricio Perez Pineda - 1016033828
+ * Hirasska de los Angeles Arrighi Barrios - 2936298
+ * Grupo_02
+ */
+
 package Interfaz;
 
 import java.util.ArrayList;
@@ -98,14 +105,14 @@ public class Main {
 						new Double[] { 21800.00, 27100.00, 32200.00, 45800.00, 64700.00, 81500.00, 94400.00 })
 		};
 
-		//Se crea una pila para guardar registros de pasos exitosos de peajes
+		// Se crea una pila para guardar registros de pasos exitosos de peajes
 
 		Stack<String> historialPeajes = new Stack<>();
 
 		/*
-		*Se inicializa en este programa consecutivo en 5, ya que tenemos 4 usuarios
-		*por defecto registrados y ahi empieza el contador unico
-		*/
+		 * Se inicializa en este programa consecutivo en 5, ya que tenemos 4 usuarios
+		 * por defecto registrados y ahi empieza el contador unico
+		 */
 
 		int consecutivoUsuario = 5;
 
@@ -468,14 +475,54 @@ public class Main {
 
 					break;
 
+				case 8:
+					System.out.println("\n--- ACTUALIZAR PLAN DE USUARIO ---");
+					if (usuarios.isEmpty()) {
+						System.out.println("No hay usuarios registrados.");
+						break;
+					}
 
+					for (int i = 0; i < usuarios.size(); i++) {
+						System.out.println((i + 1) + ". " + usuarios.get(i).getNombre()
+								+ " | Plan actual: " + usuarios.get(i).getPlan().toString()8);
+					}
 
-				/*
-				*en este espacio colocar el "case 8" para el update de la placa no olvidar
-				*probar que solo se puedan ingresar datos validos
-				*/
+					System.out.print("Seleccione el usuario para actualizar el plan: ");
+					int indiceActualizar = solicitarNumero(sc) - 1;
 
+					if (indiceActualizar < 0 || indiceActualizar >= usuarios.size()) {
+						System.out.println("Usuario no valido.");
+						break;
+					}
 
+					Usuario usuarioActualizar = usuarios.get(indiceActualizar);
+					System.out.println("Usuario seleccionado: " + usuarioActualizar.getNombre());
+					System.out.println("Plan actual: " + usuarioActualizar.getPlan().toString());
+
+					int nuevoPlanOp;
+					do {
+						System.out.println("Seleccione el nuevo plan: 1. Basico | 2. Plus | 3. Premium");
+						System.out.print("Opcion: ");
+						nuevoPlanOp = solicitarNumero(sc);
+						if (nuevoPlanOp < 1 || nuevoPlanOp > 3) {
+							System.out.println("Opcion no valida. Ingrese solo 1, 2 o 3.");
+						}
+					} while (nuevoPlanOp < 1 || nuevoPlanOp > 3);
+
+					Plan nuevoPlan = null;
+					if (nuevoPlanOp == 1) {
+						nuevoPlan = new PlanBasico(0.0);
+					} else if (nuevoPlanOp == 2) {
+						nuevoPlan = new PlanPlus(0.10);
+					} else if (nuevoPlanOp == 3) {
+						nuevoPlan = new PlanPremium(0.20);
+					}
+
+					usuarioActualizar.setPlan(nuevoPlan);
+					System.out.println("Plan actualizado correctamente para " + usuarioActualizar.getNombre()
+							+ " ahora tiene plan " + nuevoPlan.toString());
+
+					break;
 
 				case 9:
 
